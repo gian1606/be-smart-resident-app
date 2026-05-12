@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   mapBackground: {
-    height: 220,
+    height: 320,
     backgroundColor: '#E8F5E9',
     position: 'relative',
     overflow: 'hidden',

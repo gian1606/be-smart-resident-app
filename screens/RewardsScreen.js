@@ -4,6 +4,7 @@ import {
   StyleSheet, Modal, FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import QRCode from 'react-native-qrcode-svg';
 import { colors } from '../theme/colors';
 import { typography } from '../theme/typography';
 import { mockUser, mockRewards } from '../mock/data';
@@ -17,7 +18,8 @@ export default function RewardsScreen() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedReward, setSelectedReward] = useState(null);
   const [modalVisible, setModalVisible]     = useState(false);
-  const [successMsg, setSuccessMsg]         = useState('');
+  const [redeemed, setRedeemed]             = useState(false);
+  const [errorMsg, setErrorMsg]             = useState('');
 
   const featured = mockRewards.find((r) => r.featured);
   const filtered = mockRewards.filter((r) =>
@@ -27,15 +29,17 @@ export default function RewardsScreen() {
   function handleRedeem(id) {
     const reward = mockRewards.find((r) => r.id === id);
     setSelectedReward(reward);
-    setSuccessMsg('');
+    setRedeemed(false);
+    setErrorMsg('');
     setModalVisible(true);
   }
 
   function confirmRedeem() {
     if (selectedReward.tokenCost > mockUser.ecoTokenBalance) {
-      setSuccessMsg('Insufficient tokens for this reward.');
+      setErrorMsg('Insufficient tokens for this reward.');
     } else {
-      setSuccessMsg(`Successfully redeemed ${selectedReward.name}!`);
+      setRedeemed(true);
+      setErrorMsg('');
     }
   }
 
@@ -96,22 +100,41 @@ export default function RewardsScreen() {
       <Modal visible={modalVisible} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalCard}>
-            {successMsg ? (
+            {errorMsg ? (
+              /* ── Insufficient tokens ── */
               <>
-                <Ionicons
-                  name={successMsg.includes('Insufficient') ? 'close-circle' : 'checkmark-circle'}
-                  size={48}
-                  color={successMsg.includes('Insufficient') ? colors.error : colors.primary}
-                />
-                <Text style={styles.modalTitle}>{successMsg}</Text>
+                <Ionicons name="close-circle" size={48} color={colors.error} />
+                <Text style={styles.modalTitle}>Insufficient Tokens</Text>
+                <Text style={styles.modalSubtitle}>{errorMsg}</Text>
                 <TouchableOpacity
                   style={styles.modalBtn}
-                  onPress={() => { setModalVisible(false); setSuccessMsg(''); }}
+                  onPress={() => { setModalVisible(false); setErrorMsg(''); }}
                 >
                   <Text style={styles.modalBtnText}>Done</Text>
                 </TouchableOpacity>
               </>
+            ) : redeemed ? (
+              /* ── QR Code voucher ── */
+              <>
+                <TouchableOpacity
+                  style={styles.closeBtn}
+                  onPress={() => { setModalVisible(false); setRedeemed(false); }}
+                >
+                  <Ionicons name="close" size={22} color={colors.textSecondary} />
+                </TouchableOpacity>
+                <Text style={styles.modalSubtitle}>{selectedReward?.name}</Text>
+                <View style={styles.qrWrapper}>
+                  <QRCode
+                    value={`BESMART-${selectedReward?.id}-${mockUser.id}`}
+                    size={180}
+                    color={colors.textPrimary}
+                    backgroundColor={colors.secondary}
+                  />
+                </View>
+                <Text style={styles.qrHint}>Present this QR code to the partner to claim your reward.</Text>
+              </>
             ) : (
+              /* ── Confirm prompt ── */
               <>
                 <Text style={styles.modalTitle}>Redeem Reward?</Text>
                 <Text style={styles.modalSubtitle}>{selectedReward?.name}</Text>
@@ -283,5 +306,25 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontWeight: typography.weight.bold,
     fontSize: typography.size.base,
+  },
+  qrWrapper: {
+    padding: 16,
+    backgroundColor: colors.secondary,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  qrHint: {
+    fontSize: typography.size.xs,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    paddingHorizontal: 8,
+  },
+  closeBtn: {
+    position: 'absolute',
+    top: 14,
+    right: 14,
   },
 });
