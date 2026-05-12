@@ -33,9 +33,9 @@ function MainTabs({ setIsAuthenticated }) {
           backgroundColor: colors.secondary,
           borderTopWidth: 0.5,
           borderTopColor: colors.cardBorder,
-          height: 90,
-          paddingBottom: 36,
-          paddingTop: 6,
+          height: 80,
+          paddingBottom: 20,
+          paddingTop: 8,
         },
         tabBarLabelStyle: {
           fontSize: typography.size.xs,
