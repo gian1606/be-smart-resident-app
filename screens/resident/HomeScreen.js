@@ -1,11 +1,11 @@
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../theme/colors';
-import { typography } from '../theme/typography';
-import { mockUser, mockPartnerAds, mockMapData } from '../mock/data';
-import MapCard from '../components/MapCard';
-import EcoTokenBadge from '../components/EcoTokenBadge';
-import AdCard from '../components/AdCard';
+import { colors } from '../../theme/colors';
+import { typography } from '../../theme/typography';
+import { mockUser, mockPartnerAds, mockMapData } from '../../mock/data';
+import MapCard from '../../components/MapCard';
+import EcoTokenBadge from '../../components/EcoTokenBadge';
+import AdCard from '../../components/AdCard';
 
 export default function HomeScreen({ navigation }) {
   return (
