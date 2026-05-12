@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from './theme/colors';
 import { typography } from './theme/typography';
 
+import OTPScreen          from './screens/OTPScreen';
 import SplashScreen       from './screens/SplashScreen';
 import LoginScreen        from './screens/LoginScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
@@ -32,8 +33,8 @@ function MainTabs({ setIsAuthenticated }) {
           backgroundColor: colors.secondary,
           borderTopWidth: 0.5,
           borderTopColor: colors.cardBorder,
-          height: 64,
-          paddingBottom: 10,
+          height: 90,
+          paddingBottom: 36,
           paddingTop: 6,
         },
         tabBarLabelStyle: {
@@ -95,6 +96,12 @@ function AuthStack({ setIsAuthenticated }) {
         name="Registration"
         children={(props) => (
           <RegistrationScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+        )}
+      />
+      <Stack.Screen
+        name="OTP"
+        children={(props) => (
+          <OTPScreen {...props} setIsAuthenticated={setIsAuthenticated} />
         )}
       />
     </Stack.Navigator>
