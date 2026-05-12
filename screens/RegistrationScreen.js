@@ -30,7 +30,7 @@ export default function RegistrationScreen({ navigation, setIsAuthenticated }) {
       return;
     }
     setError('');
-    setIsAuthenticated(true);
+    navigation.navigate('OTP');
   }
 
   return (
