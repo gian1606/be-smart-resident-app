@@ -44,12 +44,16 @@ export default function RewardsScreen() {
   }
 
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+    <View style={styles.screen}>
 
-      <Text style={styles.title}>Eco Rewards Store</Text>
-      <Text style={styles.subtitle}>Redeem your tokens for real rewards</Text>
+      {/* Colored header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Eco Rewards Store</Text>
+        <Text style={styles.subtitle}>Redeem your tokens for real rewards</Text>
+        <EcoTokenBadge variant="pill" balance={mockUser.ecoTokenBalance} />
+      </View>
 
-      <EcoTokenBadge variant="pill" balance={mockUser.ecoTokenBalance} />
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
 
       {/* Category filter */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -154,14 +158,23 @@ export default function RewardsScreen() {
       </Modal>
 
     </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, paddingTop: 60, gap: 18, paddingBottom: 40 },
-  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.textPrimary },
-  subtitle: { fontSize: typography.size.sm, color: colors.textSecondary, marginTop: -8 },
+  header: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 20,
+    paddingTop: 56,
+    paddingBottom: 20,
+    gap: 6,
+  },
+  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.secondary },
+  subtitle: { fontSize: typography.size.sm, color: 'rgba(255,255,255,0.75)' },
+  scroll: { flex: 1 },
+  content: { padding: 20, gap: 18, paddingBottom: 40 },
   featuredCard: {
     backgroundColor: colors.secondary, borderRadius: 14, overflow: 'hidden',
     borderWidth: 1, borderColor: colors.cardBorder,

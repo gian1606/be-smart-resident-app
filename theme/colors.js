@@ -11,4 +11,6 @@ export const colors = {
   cardBorder:   '#E5E7EB',
   successLight: '#E8F5E9',
   errorLight:   '#FFEBEE',
+  buyerPrimary: '#1B5E20',
+  buyerLight:   '#C8E6C9',
 };

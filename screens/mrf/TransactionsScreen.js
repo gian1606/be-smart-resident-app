@@ -28,42 +28,21 @@ export default function TransactionsScreen() {
 
       <View style={styles.header}>
         <Text style={styles.title}>Token Transactions</Text>
-        <Text style={styles.subtitle}>Tokens issued from {mockMRFUser.facility}</Text>
+      </View>
 
-        <View style={styles.toggleRow}>
-          {FILTER_TABS.map((tab) => (
-            <TouchableOpacity
-              key={tab}
-              style={[styles.togglePill, activeTab === tab && styles.togglePillActive]}
-              onPress={() => setActiveTab(tab)}
-              activeOpacity={0.7}
-            >
-              <Text style={[styles.toggleText, activeTab === tab && styles.toggleTextActive]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        <View style={styles.summaryRow}>
-          <View style={styles.summaryItem}>
-            <Ionicons name="leaf" size={16} color={colors.primary} />
-            <Text style={styles.summaryValue}>{totalTokensIssued.toLocaleString()}</Text>
-            <Text style={styles.summaryLabel}>Tokens Issued</Text>
-          </View>
-          <View style={styles.summaryDivider} />
-          <View style={styles.summaryItem}>
-            <Ionicons name="people-outline" size={16} color={colors.primary} />
-            <Text style={styles.summaryValue}>{totalResidents}</Text>
-            <Text style={styles.summaryLabel}>Residents</Text>
-          </View>
-          <View style={styles.summaryDivider} />
-          <View style={styles.summaryItem}>
-            <Ionicons name="receipt-outline" size={16} color={colors.primary} />
-            <Text style={styles.summaryValue}>{filtered.length}</Text>
-            <Text style={styles.summaryLabel}>Transactions</Text>
-          </View>
-        </View>
+      <View style={styles.toggleWrapper}>
+        {FILTER_TABS.map((tab) => (
+          <TouchableOpacity
+            key={tab}
+            style={[styles.togglePill, activeTab === tab && styles.togglePillActive]}
+            onPress={() => setActiveTab(tab)}
+            activeOpacity={0.7}
+          >
+            <Text style={[styles.toggleText, activeTab === tab && styles.toggleTextActive]}>
+              {tab}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       <FlatList
@@ -86,19 +65,22 @@ export default function TransactionsScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  header: { backgroundColor: colors.secondary, padding: 20, paddingTop: 60, gap: 16, paddingBottom: 24, borderBottomWidth: 1, borderBottomColor: colors.cardBorder },
-  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.textPrimary },
-  subtitle: { fontSize: typography.size.sm, color: colors.textSecondary, marginTop: -8 },
-  toggleRow: { flexDirection: 'row', backgroundColor: colors.background, borderRadius: 9999, padding: 4, gap: 4 },
-  togglePill: { flex: 1, paddingVertical: 8, borderRadius: 9999, alignItems: 'center' },
-  togglePillActive: { backgroundColor: colors.primary },
+  header: { backgroundColor: colors.primary, paddingHorizontal: 20, paddingTop: 56, paddingBottom: 16 },
+  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.secondary },
+  toggleWrapper: {
+    flexDirection: 'row',
+    backgroundColor: colors.secondary,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.cardBorder,
+    flexShrink: 0,
+  },
+  togglePill: { flex: 1, paddingVertical: 9, borderRadius: 9999, alignItems: 'center', backgroundColor: colors.background, borderWidth: 1, borderColor: colors.cardBorder },
+  togglePillActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   toggleText: { fontSize: typography.size.sm, fontWeight: typography.weight.semibold, color: colors.textSecondary },
   toggleTextActive: { color: colors.secondary },
-  summaryRow: { flexDirection: 'row', backgroundColor: colors.background, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: colors.cardBorder },
-  summaryItem: { flex: 1, alignItems: 'center', gap: 4 },
-  summaryDivider: { width: 1, backgroundColor: colors.cardBorder, marginVertical: 4 },
-  summaryValue: { fontSize: typography.size.md, fontWeight: typography.weight.bold, color: colors.textPrimary },
-  summaryLabel: { fontSize: typography.size.xs, color: colors.textSecondary, textAlign: 'center' },
   list: { padding: 16, paddingBottom: 40 },
   emptyState: { alignItems: 'center', paddingTop: 60, gap: 12 },
   emptyText: { fontSize: typography.size.base, color: colors.textMuted },

@@ -75,6 +75,35 @@ export const mockMRFLocations = [
   { id: 'mrf-loc-004', name: 'MRF Cuta',       barangay: 'Brgy. Cuta',             status: 'full',      posX: 0.75, posY: 0.55 },
 ];
 
+// ─── MRF Buyer ───────────────────────────────────────────────────────────────
+export const mockBuyerUser = {
+  id: 'buyer-001',
+  name: 'Ramon Villanueva',
+  initials: 'RV',
+  email: 'ramon.villanueva@email.com',
+  phone: '+63 919 876 5432',
+  address: '45 Burgos St, Batangas City',
+  barangay: 'Brgy. Cuta',
+  memberSince: 'Feb 2025',
+  totalPurchases: 18,
+  totalSpent: '₱24,500',
+  completedReservations: 15,
+};
+
+export const mockMRFReservations = [
+  { id: 'res-001', mrfName: 'MRF Alangilan',  barangay: 'Brgy. Alangilan',       material: 'Recyclables',   weight: '50 kg',  amount: '₱1,500', status: 'pending',   dateTime: 'May 14, 2025 · 10:00 AM' },
+  { id: 'res-002', mrfName: 'MRF Pallocan',   barangay: 'Brgy. Pallocan West',   material: 'Scrap Metal',   weight: '30 kg',  amount: '₱2,100', status: 'pending',   dateTime: 'May 15, 2025 · 2:00 PM'  },
+  { id: 'res-003', mrfName: 'MRF Kumintang',  barangay: 'Brgy. Kumintang Ibaba', material: 'Recyclables',   weight: '80 kg',  amount: '₱2,400', status: 'completed', dateTime: 'May 10, 2025 · 9:00 AM'  },
+  { id: 'res-004', mrfName: 'MRF Cuta',       barangay: 'Brgy. Cuta',            material: 'Scrap Metal',   weight: '60 kg',  amount: '₱4,200', status: 'completed', dateTime: 'May 8, 2025 · 11:30 AM'  },
+  { id: 'res-005', mrfName: 'MRF Alangilan',  barangay: 'Brgy. Alangilan',       material: 'Biodegradable', weight: '40 kg',  amount: '₱800',   status: 'completed', dateTime: 'May 5, 2025 · 3:00 PM'   },
+];
+
+export const mockBuyerTransactions = [
+  { id: 'btxn-001', mrfName: 'MRF Kumintang',  barangay: 'Brgy. Kumintang Ibaba', material: 'Recyclables',   weight: '80 kg',  amount: '₱2,400', dateTime: 'May 10, 2025 · 9:00 AM'  },
+  { id: 'btxn-002', mrfName: 'MRF Cuta',       barangay: 'Brgy. Cuta',            material: 'Scrap Metal',   weight: '60 kg',  amount: '₱4,200', dateTime: 'May 8, 2025 · 11:30 AM'  },
+  { id: 'btxn-003', mrfName: 'MRF Alangilan',  barangay: 'Brgy. Alangilan',       material: 'Biodegradable', weight: '40 kg',  amount: '₱800',   dateTime: 'May 5, 2025 · 3:00 PM'   },
+  { id: 'btxn-004', mrfName: 'MRF Pallocan',   barangay: 'Brgy. Pallocan West',   material: 'Recyclables',   weight: '100 kg', amount: '₱3,000', dateTime: 'Apr 28, 2025 · 8:00 AM'  },
+  { id: 'btxn-005', mrfName: 'MRF Kumintang',  barangay: 'Brgy. Kumintang Ibaba', material: 'Scrap Metal',   weight: '75 kg',  amount: '₱5,250', dateTime: 'Apr 22, 2025 · 1:00 PM'  },
 // ─── Garbage Collector ──────────────────────────────────────────────────────
 export const mockCollectorUser = {
   id: 'col-042',

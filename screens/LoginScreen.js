@@ -9,6 +9,9 @@ import { typography } from '../theme/typography';
 
 // Mock credentials — backend would determine role in production
 const MOCK_CREDENTIALS = {
+  'resident@besmart.ph': { password: 'resident123', role: 'resident' },
+  'mrf@besmart.ph':      { password: 'mrf123',      role: 'mrf'      },
+  'buyer@besmart.ph':    { password: 'buyer123',     role: 'buyer'    },
   'resident@besmart.ph':  { password: 'resident123', role: 'resident'  },
   'mrf@besmart.ph':       { password: 'mrf123',      role: 'mrf'       },
   'collector@besmart.ph': { password: 'collector123', role: 'collector' },
@@ -100,6 +103,7 @@ export default function LoginScreen({ navigation, setIsAuthenticated }) {
             <Text style={styles.hintTitle}>Demo Credentials</Text>
             <Text style={styles.hintText}>Resident: resident@besmart.ph / resident123</Text>
             <Text style={styles.hintText}>MRF Worker: mrf@besmart.ph / mrf123</Text>
+            <Text style={styles.hintText}>MRF Buyer: buyer@besmart.ph / buyer123</Text>
             <Text style={styles.hintText}>Collector: collector@besmart.ph / collector123</Text>
           </View>
 
