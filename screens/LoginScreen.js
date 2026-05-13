@@ -9,12 +9,10 @@ import { typography } from '../theme/typography';
 
 // Mock credentials — backend would determine role in production
 const MOCK_CREDENTIALS = {
-  'resident@besmart.ph': { password: 'resident123', role: 'resident' },
-  'mrf@besmart.ph':      { password: 'mrf123',      role: 'mrf'      },
-  'buyer@besmart.ph':    { password: 'buyer123',     role: 'buyer'    },
-  'resident@besmart.ph':  { password: 'resident123', role: 'resident'  },
-  'mrf@besmart.ph':       { password: 'mrf123',      role: 'mrf'       },
-  'collector@besmart.ph': { password: 'collector123', role: 'collector' },
+  'resident@besmart.ph':  { password: 'resident123',  role: 'resident'  },
+  'mrf@besmart.ph':       { password: 'mrf123',        role: 'mrf'       },
+  'buyer@besmart.ph':     { password: 'buyer123',      role: 'buyer'     },
+  'collector@besmart.ph': { password: 'collector123',  role: 'collector' },
 };
 
 export default function LoginScreen({ navigation, setIsAuthenticated }) {
