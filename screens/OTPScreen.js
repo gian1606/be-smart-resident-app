@@ -38,7 +38,7 @@ export default function OTPScreen({ navigation, setIsAuthenticated }) {
     }
     // Mock OTP — any 4 digits works
     setError('');
-    setIsAuthenticated(true);
+    setIsAuthenticated(true, 'resident');
   }
 
   function handleResend() {
