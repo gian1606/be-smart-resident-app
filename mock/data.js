@@ -75,6 +75,47 @@ export const mockMRFLocations = [
   { id: 'mrf-loc-004', name: 'MRF Cuta',       barangay: 'Brgy. Cuta',             status: 'full',      posX: 0.75, posY: 0.55 },
 ];
 
+// ─── Garbage Collector ──────────────────────────────────────────────────────
+export const mockCollectorUser = {
+  id: 'col-042',
+  name: 'Pedro Santos',
+  initials: 'PS',
+  collectorId: 'COL-2024-0042',
+  email: 'pedro.santos@besmart.gov.ph',
+  phone: '+63 919 876 5432',
+  zone: 'Zone 3 — Batangas City',
+  assignedBarangay: 'Brgy. Kumintang Ibaba',
+  memberSince: 'Jan 2024',
+  binsCollectedToday: 7,
+  totalCollectedKg: 340,
+  truckCapacityKg: 2000,
+  shiftsCompleted: 42,
+};
+
+export const mockCollectorBins = [
+  { id: 'BIN-2024-A', name: 'Bin A', street: 'Main Avenue',    barangay: 'Brgy. Kumintang Ibaba', status: 'full',      reportedBy: 'Maria S. (RES-0015)', timeReported: '7:45 AM', posX: 0.28, posY: 0.38 },
+  { id: 'BIN-2024-B', name: 'Bin B', street: 'Rizal Avenue',   barangay: 'Brgy. Kumintang Ibaba', status: 'full',      reportedBy: 'Jose L. (RES-0033)', timeReported: '8:02 AM', posX: 0.62, posY: 0.28 },
+  { id: 'BIN-2024-C', name: 'Bin C', street: 'Central Road',   barangay: 'Brgy. Kumintang Ibaba', status: 'collected', reportedBy: 'Juan D. (RES-0021)', timeReported: '8:14 AM', posX: 0.48, posY: 0.55 },
+  { id: 'BIN-2024-D', name: 'Bin D', street: 'Barangay Road',  barangay: 'Brgy. Kumintang Ibaba', status: 'full',      reportedBy: 'Ana R. (RES-0044)', timeReported: '8:30 AM', posX: 0.3,  posY: 0.7  },
+  { id: 'BIN-2024-E', name: 'Bin E', street: 'Market Street',  barangay: 'Brgy. Pallocan West',   status: 'missed',    reportedBy: 'Luis M. (RES-0009)', timeReported: '7:20 AM', posX: 0.7,  posY: 0.62 },
+];
+
+export const mockCollectorTransactions = [
+  { id: 'col-txn-001', binId: 'BIN-2024-C', binName: 'Bin C', street: 'Central Road',   barangay: 'Brgy. Kumintang Ibaba', collectedAt: 'May 13, 2025 · 9:41 AM',  weightKg: null,  status: 'collected' },
+  { id: 'col-txn-002', binId: 'BIN-2024-F', binName: 'Bin F', street: 'Pallocan Ave',   barangay: 'Brgy. Pallocan West',   collectedAt: 'May 12, 2025 · 3:15 PM',  weightKg: 85.5,  status: 'reported'  },
+  { id: 'col-txn-003', binId: 'BIN-2024-G', binName: 'Bin G', street: 'Alangilan Rd',   barangay: 'Brgy. Alangilan',       collectedAt: 'May 12, 2025 · 1:00 PM',  weightKg: 120.0, status: 'reported'  },
+  { id: 'col-txn-004', binId: 'BIN-2024-H', binName: 'Bin H', street: 'Rizal Avenue',   barangay: 'Brgy. Kumintang Ibaba', collectedAt: 'May 11, 2025 · 10:30 AM', weightKg: 95.0,  status: 'reported'  },
+  { id: 'col-txn-005', binId: 'BIN-2024-I', binName: 'Bin I', street: 'Cuta Road',      barangay: 'Brgy. Cuta',            collectedAt: 'May 11, 2025 · 8:45 AM',  weightKg: 60.0,  status: 'reported'  },
+  { id: 'col-txn-006', binId: 'BIN-2024-J', binName: 'Bin J', street: 'Market Street',  barangay: 'Brgy. Pallocan West',   collectedAt: 'May 10, 2025 · 2:00 PM',  weightKg: 110.5, status: 'reported'  },
+];
+
+export const mockCollectorNotifications = [
+  { id: 'notif-001', type: 'task',     title: 'Priority Pickup',       body: 'Bin B on Rizal Ave is FULL. Immediate collection needed.', time: '8:02 AM', read: false },
+  { id: 'notif-002', type: 'schedule', title: 'Route Updated',         body: 'Your route has been updated. 2 new bins added.',           time: '7:30 AM', read: false },
+  { id: 'notif-003', type: 'complete', title: 'Route Complete',        body: 'All bins in Brgy. K.I. collected. Input weight to finalize.', time: 'Yesterday', read: true },
+  { id: 'notif-004', type: 'report',   title: 'Report Submitted',      body: 'Barangay report for Brgy. K.I. submitted successfully.',   time: 'Yesterday', read: true },
+];
+
 // ─── Shared ──────────────────────────────────────────────────────────────────
 export const mockRewards = [
   { id: 'rwd-001', name: 'Mercury Drug ₱100 Voucher',    tokenCost: 400, category: 'Services',  partner: 'Mercury Drug',       placeholderColor: '#E3F2FD', featured: true  },
