@@ -34,16 +34,19 @@ import BuyerReservations from './screens/buyer/ReservationsScreen';
 import BuyerQRScanner    from './screens/buyer/QRScannerScreen';
 import BuyerTransactions from './screens/buyer/TransactionsScreen';
 import BuyerProfile      from './screens/buyer/ProfileScreen';
+
 // Collector screens
 import CollectorHome         from './screens/collector/HomeScreen';
 import CollectorQRScanner    from './screens/collector/QRScannerScreen';
 import CollectionConfirmed   from './screens/collector/CollectionConfirmedScreen';
 import CollectorTransactions from './screens/collector/TransactionsScreen';
 import CollectorProfile      from './screens/collector/ProfileScreen';
+
 import { mockCollectorNotifications } from './mock/data';
 
-const Stack = createStackNavigator();
-const Tab   = createBottomTabNavigator();
+const Stack               = createStackNavigator();
+const Tab                 = createBottomTabNavigator();
+const CollectorRootStack  = createStackNavigator();
 
 // ─── Shared tab navigator config ─────────────────────────────────────────────
 const tabScreenOptions = ({ route }) => ({
@@ -65,12 +68,12 @@ const tabScreenOptions = ({ route }) => ({
   },
   tabBarIcon: ({ color, focused }) => {
     const icons = {
-      Home:         focused ? 'home'         : 'home-outline',
-      Rewards:      focused ? 'gift'          : 'gift-outline',
-      Reservations: focused ? 'calendar'      : 'calendar-outline',
-      QR:           focused ? 'qr-code'       : 'qr-code-outline',
-      Transactions: focused ? 'receipt'       : 'receipt-outline',
-      Profile:      focused ? 'person'        : 'person-outline',
+      Home:         focused ? 'home'      : 'home-outline',
+      Rewards:      focused ? 'gift'      : 'gift-outline',
+      Reservations: focused ? 'calendar'  : 'calendar-outline',
+      QR:           focused ? 'qr-code'   : 'qr-code-outline',
+      Transactions: focused ? 'receipt'   : 'receipt-outline',
+      Profile:      focused ? 'person'    : 'person-outline',
     };
     return <Ionicons name={icons[route.name]} size={22} color={color} />;
   },
@@ -132,11 +135,11 @@ function BuyerTabs({ setIsAuthenticated }) {
         name="Profile"
         children={() => <BuyerProfile setIsAuthenticated={setIsAuthenticated} />}
       />
-// ─── Collector navigators ─────────────────────────────────────────────────────
-const CollectorStack     = createStackNavigator();
-const CollectorRootStack = createStackNavigator();
+    </Tab.Navigator>
+  );
+}
 
-// Bottom tabs only — no QR/Confirmed screens here
+// ─── Collector tabs ───────────────────────────────────────────────────────────
 function CollectorTabNavigator({ setIsAuthenticated }) {
   const collectorTabOptions = ({ route }) => ({
     headerShown: false,
@@ -159,7 +162,7 @@ function CollectorTabNavigator({ setIsAuthenticated }) {
       const icons = {
         CollectorHomeTab:    focused ? 'home'          : 'home-outline',
         CollectorNotifTab:   focused ? 'notifications' : 'notifications-outline',
-        CollectorQRTab:      'qr-code-outline', // handled by tabBarButton, icon unused
+        CollectorQRTab:      'qr-code-outline',
         CollectorLogTab:     focused ? 'receipt'       : 'receipt-outline',
         CollectorProfileTab: focused ? 'person'        : 'person-outline',
       };
@@ -174,14 +177,11 @@ function CollectorTabNavigator({ setIsAuthenticated }) {
         component={CollectorHome}
         options={{ tabBarLabel: 'Home' }}
       />
-
       <Tab.Screen
         name="CollectorNotifTab"
         component={CollectorNotificationsScreen}
         options={{ tabBarLabel: 'Notifications' }}
       />
-
-      {/* QR FAB — navigates to QR screen in the root stack above the tabs */}
       <Tab.Screen
         name="CollectorQRTab"
         component={CollectorHome}
@@ -209,13 +209,11 @@ function CollectorTabNavigator({ setIsAuthenticated }) {
           },
         })}
       />
-
       <Tab.Screen
         name="CollectorLogTab"
         component={CollectorTransactions}
         options={{ tabBarLabel: 'Log' }}
       />
-
       <Tab.Screen
         name="CollectorProfileTab"
         options={{ tabBarLabel: 'Profile' }}
@@ -226,20 +224,20 @@ function CollectorTabNavigator({ setIsAuthenticated }) {
   );
 }
 
-// Root stack wraps the tabs + QR scanner + Collection confirmed as full-screen overlays
+// Root stack wraps tabs + QR scanner + Collection confirmed as full-screen overlays
 function CollectorTabs({ setIsAuthenticated }) {
   return (
     <CollectorRootStack.Navigator screenOptions={{ headerShown: false }}>
       <CollectorRootStack.Screen name="CollectorTabsMain">
         {() => <CollectorTabNavigator setIsAuthenticated={setIsAuthenticated} />}
       </CollectorRootStack.Screen>
-      <CollectorRootStack.Screen name="CollectorQRScreen"      component={CollectorQRScanner} />
-      <CollectorRootStack.Screen name="CollectionConfirmed"    component={CollectionConfirmed} />
+      <CollectorRootStack.Screen name="CollectorQRScreen"   component={CollectorQRScanner} />
+      <CollectorRootStack.Screen name="CollectionConfirmed" component={CollectionConfirmed} />
     </CollectorRootStack.Navigator>
   );
 }
 
-// Notifications screen component
+// ─── Collector notifications screen ──────────────────────────────────────────
 function CollectorNotificationsScreen() {
   const iconMap = {
     task:     'alert-circle-outline',
@@ -249,50 +247,34 @@ function CollectorNotificationsScreen() {
   };
 
   return (
-    <View style={notifScreenStyles.screen}>
-      <View style={notifScreenStyles.header}>
-        <Text style={notifScreenStyles.title}>Notifications</Text>
-        <Text style={notifScreenStyles.subtitle}>
+    <View style={notifStyles.screen}>
+      <View style={notifStyles.header}>
+        <Text style={notifStyles.title}>Notifications</Text>
+        <Text style={notifStyles.subtitle}>
           {mockCollectorNotifications.filter((n) => !n.read).length} unread
         </Text>
       </View>
-      <ScrollView contentContainerStyle={notifScreenStyles.list}>
+      <ScrollView contentContainerStyle={notifStyles.list}>
         {mockCollectorNotifications.map((item) => (
           <View
             key={item.id}
-            style={[notifScreenStyles.row, !item.read && notifScreenStyles.rowUnread]}
+            style={[notifStyles.row, !item.read && notifStyles.rowUnread]}
           >
-            <View style={notifScreenStyles.iconWrap}>
+            <View style={notifStyles.iconWrap}>
               <Ionicons name={iconMap[item.type]} size={18} color="#0D7A5F" />
             </View>
-            <View style={notifScreenStyles.body}>
-              <Text style={notifScreenStyles.itemTitle}>{item.title}</Text>
-              <Text style={notifScreenStyles.itemBody}>{item.body}</Text>
-              <Text style={notifScreenStyles.itemTime}>{item.time}</Text>
+            <View style={notifStyles.body}>
+              <Text style={notifStyles.itemTitle}>{item.title}</Text>
+              <Text style={notifStyles.itemBody}>{item.body}</Text>
+              <Text style={notifStyles.itemTime}>{item.time}</Text>
             </View>
-            {!item.read && <View style={notifScreenStyles.dot} />}
+            {!item.read && <View style={notifStyles.dot} />}
           </View>
         ))}
       </ScrollView>
     </View>
   );
 }
-
-const notifScreenStyles = StyleSheet.create({
-  screen:    { flex: 1, backgroundColor: '#F4FAF7' },
-  header:    { backgroundColor: '#0D7A5F', paddingTop: 56, paddingBottom: 18, paddingHorizontal: 20, gap: 2 },
-  title:     { fontSize: 24, fontWeight: '700', color: '#fff' },
-  subtitle:  { fontSize: 13, color: 'rgba(255,255,255,0.7)' },
-  list:      { padding: 16, gap: 10, paddingBottom: 40 },
-  row:       { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: '#fff', borderRadius: 12, padding: 14, gap: 12, borderWidth: 1, borderColor: '#E0EDE8' },
-  rowUnread: { backgroundColor: '#F0FDF8', borderColor: '#00E5A0' },
-  iconWrap:  { width: 36, height: 36, borderRadius: 9999, backgroundColor: '#E6F7F2', justifyContent: 'center', alignItems: 'center' },
-  body:      { flex: 1, gap: 2 },
-  itemTitle: { fontSize: 13, fontWeight: '700', color: '#0D1F1A' },
-  itemBody:  { fontSize: 11, color: '#6B8C81' },
-  itemTime:  { fontSize: 11, color: '#9BB5AC', marginTop: 2 },
-  dot:       { width: 8, height: 8, borderRadius: 9999, backgroundColor: '#00E5A0', marginTop: 4 },
-});
 
 // ─── Auth stack ───────────────────────────────────────────────────────────────
 function AuthStack({ setIsAuthenticated }) {
@@ -324,7 +306,7 @@ function AuthStack({ setIsAuthenticated }) {
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole]               = useState(null); // 'resident' | 'mrf'
+  const [userRole, setUserRole]               = useState(null);
 
   function handleSetAuth(value, role = null) {
     setIsAuthenticated(value);
@@ -333,17 +315,16 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {!isAuthenticated && <AuthStack setIsAuthenticated={handleSetAuth} />}
-      {isAuthenticated && userRole === 'resident' && <ResidentTabs setIsAuthenticated={handleSetAuth} />}
-      {isAuthenticated && userRole === 'mrf'      && <MRFTabs      setIsAuthenticated={handleSetAuth} />}
-      {isAuthenticated && userRole === 'buyer'    && <BuyerTabs    setIsAuthenticated={handleSetAuth} />}
+      {!isAuthenticated                        && <AuthStack      setIsAuthenticated={handleSetAuth} />}
       {isAuthenticated && userRole === 'resident'  && <ResidentTabs  setIsAuthenticated={handleSetAuth} />}
       {isAuthenticated && userRole === 'mrf'       && <MRFTabs       setIsAuthenticated={handleSetAuth} />}
+      {isAuthenticated && userRole === 'buyer'     && <BuyerTabs     setIsAuthenticated={handleSetAuth} />}
       {isAuthenticated && userRole === 'collector' && <CollectorTabs setIsAuthenticated={handleSetAuth} />}
     </NavigationContainer>
   );
 }
 
+// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   fabWrapper: {
     flex: 1,
@@ -377,4 +358,20 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
+});
+
+const notifStyles = StyleSheet.create({
+  screen:    { flex: 1, backgroundColor: '#F4FAF7' },
+  header:    { backgroundColor: '#0D7A5F', paddingTop: 56, paddingBottom: 18, paddingHorizontal: 20, gap: 2 },
+  title:     { fontSize: 24, fontWeight: '700', color: '#fff' },
+  subtitle:  { fontSize: 13, color: 'rgba(255,255,255,0.7)' },
+  list:      { padding: 16, gap: 10, paddingBottom: 40 },
+  row:       { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: '#fff', borderRadius: 12, padding: 14, gap: 12, borderWidth: 1, borderColor: '#E0EDE8' },
+  rowUnread: { backgroundColor: '#F0FDF8', borderColor: '#00E5A0' },
+  iconWrap:  { width: 36, height: 36, borderRadius: 9999, backgroundColor: '#E6F7F2', justifyContent: 'center', alignItems: 'center' },
+  body:      { flex: 1, gap: 2 },
+  itemTitle: { fontSize: 13, fontWeight: '700', color: '#0D1F1A' },
+  itemBody:  { fontSize: 11, color: '#6B8C81' },
+  itemTime:  { fontSize: 11, color: '#9BB5AC', marginTop: 2 },
+  dot:       { width: 8, height: 8, borderRadius: 9999, backgroundColor: '#00E5A0', marginTop: 4 },
 });

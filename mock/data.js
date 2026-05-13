@@ -104,6 +104,8 @@ export const mockBuyerTransactions = [
   { id: 'btxn-003', mrfName: 'MRF Alangilan',  barangay: 'Brgy. Alangilan',       material: 'Biodegradable', weight: '40 kg',  amount: '₱800',   dateTime: 'May 5, 2025 · 3:00 PM'   },
   { id: 'btxn-004', mrfName: 'MRF Pallocan',   barangay: 'Brgy. Pallocan West',   material: 'Recyclables',   weight: '100 kg', amount: '₱3,000', dateTime: 'Apr 28, 2025 · 8:00 AM'  },
   { id: 'btxn-005', mrfName: 'MRF Kumintang',  barangay: 'Brgy. Kumintang Ibaba', material: 'Scrap Metal',   weight: '75 kg',  amount: '₱5,250', dateTime: 'Apr 22, 2025 · 1:00 PM'  },
+];
+
 // ─── Garbage Collector ──────────────────────────────────────────────────────
 export const mockCollectorUser = {
   id: 'col-042',
