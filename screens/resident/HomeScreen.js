@@ -9,19 +9,21 @@ import AdCard from '../../components/AdCard';
 
 export default function HomeScreen({ navigation }) {
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+    <View style={styles.screen}>
 
-      {/* Header */}
+      {/* Colored header banner */}
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>Good morning, {mockUser.name.split(' ')[0]} 👋</Text>
           <Text style={styles.subtitle}>Batangas City Waste Tracker</Text>
         </View>
         <View style={styles.bellWrapper}>
-          <Ionicons name="notifications-outline" size={24} color={colors.textPrimary} />
+          <Ionicons name="notifications-outline" size={24} color={colors.secondary} />
           <View style={styles.bellDot} />
         </View>
       </View>
+
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
 
       {/* Live Map */}
       <MapCard mapData={mockMapData} />
@@ -42,6 +44,7 @@ export default function HomeScreen({ navigation }) {
       </ScrollView>
 
     </ScrollView>
+    </View>
   );
 }
 
@@ -50,25 +53,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  content: {
-    padding: 20,
-    paddingTop: 60,
-    gap: 18,
-    paddingBottom: 40,
-  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    paddingHorizontal: 20,
+    paddingTop: 56,
+    paddingBottom: 20,
   },
   greeting: {
     fontSize: typography.size.md,
     fontWeight: typography.weight.semibold,
-    color: colors.textPrimary,
+    color: colors.secondary,
   },
   subtitle: {
     fontSize: typography.size.sm,
-    color: colors.textSecondary,
+    color: 'rgba(255,255,255,0.75)',
     marginTop: 2,
   },
   bellWrapper: {
@@ -83,7 +84,15 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
     backgroundColor: colors.accent,
     borderWidth: 1,
-    borderColor: colors.secondary,
+    borderColor: colors.primary,
+  },
+  scroll: {
+    flex: 1,
+  },
+  content: {
+    padding: 20,
+    gap: 18,
+    paddingBottom: 40,
   },
   sectionLabel: {
     fontSize: typography.size.md,

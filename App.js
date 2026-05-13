@@ -28,6 +28,13 @@ import MRFQRScanner    from './screens/mrf/QRScannerScreen';
 import MRFTransactions from './screens/mrf/TransactionsScreen';
 import MRFProfile      from './screens/mrf/ProfileScreen';
 
+// MRF Buyer screens
+import BuyerHome         from './screens/buyer/HomeScreen';
+import BuyerReservations from './screens/buyer/ReservationsScreen';
+import BuyerQRScanner    from './screens/buyer/QRScannerScreen';
+import BuyerTransactions from './screens/buyer/TransactionsScreen';
+import BuyerProfile      from './screens/buyer/ProfileScreen';
+
 const Stack = createStackNavigator();
 const Tab   = createBottomTabNavigator();
 
@@ -53,6 +60,7 @@ const tabScreenOptions = ({ route }) => ({
     const icons = {
       Home:         focused ? 'home'         : 'home-outline',
       Rewards:      focused ? 'gift'          : 'gift-outline',
+      Reservations: focused ? 'calendar'      : 'calendar-outline',
       QR:           focused ? 'qr-code'       : 'qr-code-outline',
       Transactions: focused ? 'receipt'       : 'receipt-outline',
       Profile:      focused ? 'person'        : 'person-outline',
@@ -105,6 +113,22 @@ function MRFTabs({ setIsAuthenticated }) {
   );
 }
 
+// ─── MRF Buyer tabs ───────────────────────────────────────────────────────────
+function BuyerTabs({ setIsAuthenticated }) {
+  return (
+    <Tab.Navigator screenOptions={tabScreenOptions}>
+      <Tab.Screen name="Home"         component={BuyerHome} />
+      <Tab.Screen name="Reservations" component={BuyerReservations} />
+      <Tab.Screen name="QR"           component={BuyerQRScanner} options={fabOptions} />
+      <Tab.Screen name="Transactions" component={BuyerTransactions} />
+      <Tab.Screen
+        name="Profile"
+        children={() => <BuyerProfile setIsAuthenticated={setIsAuthenticated} />}
+      />
+    </Tab.Navigator>
+  );
+}
+
 // ─── Auth stack ───────────────────────────────────────────────────────────────
 function AuthStack({ setIsAuthenticated }) {
   return (
@@ -147,6 +171,7 @@ export default function App() {
       {!isAuthenticated && <AuthStack setIsAuthenticated={handleSetAuth} />}
       {isAuthenticated && userRole === 'resident' && <ResidentTabs setIsAuthenticated={handleSetAuth} />}
       {isAuthenticated && userRole === 'mrf'      && <MRFTabs      setIsAuthenticated={handleSetAuth} />}
+      {isAuthenticated && userRole === 'buyer'    && <BuyerTabs    setIsAuthenticated={handleSetAuth} />}
     </NavigationContainer>
   );
 }

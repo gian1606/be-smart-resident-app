@@ -18,10 +18,15 @@ export default function RewardsScreen() {
   );
 
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+    <View style={styles.screen}>
 
-      <Text style={styles.title}>Eco Rewards Catalog</Text>
-      <Text style={styles.subtitle}>Rewards available for residents to claim</Text>
+      {/* Colored header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Eco Rewards Catalog</Text>
+        <Text style={styles.subtitle}>Rewards available for residents to claim</Text>
+      </View>
+
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
 
       {/* Info banner */}
       <View style={styles.infoBanner}>
@@ -73,14 +78,23 @@ export default function RewardsScreen() {
       </View>
 
     </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, paddingTop: 60, gap: 18, paddingBottom: 40 },
-  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.textPrimary },
-  subtitle: { fontSize: typography.size.sm, color: colors.textSecondary, marginTop: -8 },
+  header: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 20,
+    paddingTop: 56,
+    paddingBottom: 20,
+    gap: 4,
+  },
+  title: { fontSize: typography.size.xl, fontWeight: typography.weight.bold, color: colors.secondary },
+  subtitle: { fontSize: typography.size.sm, color: 'rgba(255,255,255,0.75)' },
+  scroll: { flex: 1 },
+  content: { padding: 20, gap: 18, paddingBottom: 40 },
   infoBanner: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, backgroundColor: '#EDE7F6', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#CE93D8' },
   infoText: { flex: 1, fontSize: typography.size.xs, color: '#4A148C', lineHeight: 18 },
   featuredCard: { backgroundColor: colors.secondary, borderRadius: 14, overflow: 'hidden', borderWidth: 1, borderColor: colors.cardBorder, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 10, elevation: 3 },
